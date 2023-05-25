@@ -15,7 +15,7 @@
                   <h3>{{ product.name }}</h3>
                   {% comment %} <p>{{ product.description }}</p> {% endcomment %}
                   <h5 class="text-warning"><b>Price:</b> {{ product.price }}</h5>
-                  <button class="btn btn-primary">Buy</button>
+                  <a href="{{ product.id }}"><button class="btn btn-primary">Buy</button></a>
                 </div>
               </div>
             </div>
