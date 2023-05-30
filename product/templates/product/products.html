@@ -1,28 +1,67 @@
-{% extends 'base.html' %}
-{% block title %}
+{% extends 'product/base.html' %} {% block title %}
   Products
 {% endblock %} {% block content %}
   <section id="product" class="py-5">
     <div class="container">
       <h3 class="text-center mb-4">Products</h3>
-      <div class="row">
-        {% if products %}
-          {% for product in products %}
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-              <div class="card">
-                <img src="{{ product.image.url }}" class="p-2" alt="{{ product.name }}" />
-                <div class="card-body">
-                  <h3>{{ product.name }}</h3>
-                  {% comment %} <p>{{ product.description }}</p> {% endcomment %}
-                  <h5 class="text-warning"><b>Price:</b> {{ product.price }}</h5>
-                  <a href="{{ product.id }}"><button class="btn btn-primary">Buy</button></a>
-                </div>
+      <div class="row g-5">
+        <div class="col-12 col-sm-3">
+          <form method="post">
+            {% csrf_token %}
+            <h4>Prices</h4>
+            <div class="row">
+              <div class="col-6">
+                <input type="number" class="form-control" name="min_price" placeholder="{{ selected_min_price }}" />
+              </div>
+              <div class="col-6">
+                <input type="number" class="form-control" name="max_price" placeholder="{{ selected_max_price }}" />
               </div>
             </div>
-          {% endfor %}
-        {% else %}
-          <p>Not Found!</p>
-        {% endif %}
+
+            <br />
+            <h4>Categories</h4>
+            {% for category in categories %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="{{ category.name }}" name="category" value="{{ category.name }}"  {% if category.name == selected_category %}checked{% endif %} />
+                <label class="form-check-label" for="{{ category.name }}">{{ category.name }}</label>
+              </div>
+            {% endfor %}
+            <br />
+            <h4>Brands</h4>
+            {% for brand in brands %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="{{ brand.name }}" name="brand" value="{{ brand.name }}" />
+                <label class="form-check-label" for="{{ brand.name }}">{{ brand.name }}</label>
+              </div>
+            {% endfor %}
+            <br />
+            <button type="submit" class="btn btn-secondary">Filter Products</button>
+          </form>
+        </div>
+
+        <div class="col-12 col-sm-9">
+          <div class="row g-4">
+            {% if products %}
+              {% for product in products %}
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="card custom-card">
+                    <img src="{{ product.image.url }}" class="p-2" alt="{{ product.name }}" height="200px" />
+                    <div class="card-body">
+                      <h4 class="card-title">{{ product.name }}</h4>
+                      {% comment %}
+                      <p>{{ product.description }}</p>
+                      {% endcomment %}
+                      <h5 class="text-warning"><b>Price:</b> {{ product.price }}</h5>
+                      <a href="{{ product.id }}"><button class="btn btn-primary">Buy</button></a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p>Not Found!</p>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
   </section>

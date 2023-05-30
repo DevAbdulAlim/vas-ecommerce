@@ -1,0 +1,22 @@
+/* Navbar */
+.custom-navbar-nav {
+  width: 100% !important;
+  justify-content: flex-end !important;
+}
+.custom-navbar-nav li a {
+  color: white;
+}
+.logo {
+  border-radius: 50%;
+}
+
+/* Product */
+
+.custom-card {
+  max-height: 400px;
+  overflow: hidden;
+}
+.card-title {
+  max-height: 2.4em;
+  overflow: hidden;
+}
