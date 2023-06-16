@@ -4,6 +4,7 @@
   <section id="product" class="py-5">
     <div class="container">
       <h3 class="text-center mb-4">Products</h3>
+      <p class="text-center text-success">{{selected_category}} | {{selected_min_price}}-{{selected_max_price}}</p>
       <div class="row g-5">
         <div class="col-12 col-sm-3">
           <form method="post">
@@ -11,10 +12,10 @@
             <h4>Prices</h4>
             <div class="row">
               <div class="col-6">
-                <input type="number" class="form-control" name="min_price" placeholder="{{ selected_min_price }}" />
+                <input type="number" class="form-control" name="min_price" value="{{ selected_min_price }}" placeholder="{{ selected_min_price }}" />
               </div>
               <div class="col-6">
-                <input type="number" class="form-control" name="max_price" placeholder="{{ selected_max_price }}" />
+                <input type="number" class="form-control" name="max_price" value="{{ selected_max_price }}" placeholder="{{ selected_max_price }}" />
               </div>
             </div>
 
@@ -40,6 +41,7 @@
         </div>
 
         <div class="col-12 col-sm-9">
+          
           <div class="row g-4">
             {% if products %}
               {% for product in products %}
