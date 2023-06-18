@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n0luxo1vsdlrv&ggu963s&3*3@kgr749hcsy^mgauevscv5d+8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
     'product',
+    'shopping',
+    'checkout',
+    'payment',
+    'sslserver',
+
+
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -129,3 +139,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Stripe
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51NJShpSEl3BLLeTfOjk7cZRBIlRx6P7stxroOXrCuJkV8uRYdAxRzsjAID2WbTomGwfHmsSC9MlSxfL7vLFL8O1800b4m50L4b'
+STRIPE_SECRET_KEY = 'sk_test_51NJShpSEl3BLLeTfIAWeX5thnZ4im9IpdiZsW6thk3reUS2hmJ4TA99R3FEz2oc5Gpoyv3Nkxt02utJrvny9o8Zh00MqJrv7Sy'
+import stripe
+
+# Set your Stripe API key
+stripe.api_key = "sk_test_51NJShpSEl3BLLeTfIAWeX5thnZ4im9IpdiZsW6thk3reUS2hmJ4TA99R3FEz2oc5Gpoyv3Nkxt02utJrvny9o8Zh00MqJrv7Sy"
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SSL_CERTIFICATE = os.path.join(BASE_DIR, 'cert.pem')
+SSL_KEY = os.path.join(BASE_DIR, 'key.pem')
