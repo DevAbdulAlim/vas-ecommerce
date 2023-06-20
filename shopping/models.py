@@ -21,16 +21,16 @@ class Order(BaseModel):
     shipping_charges = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
     tax_amount = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
     discount_amount = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
-    subtotal_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
+    subtotal_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2, default=0)
     total_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
 
     def calculate_subtotal_price(self):
-        subtotal_price = 0
+   
         # Check if there are any order items
         if self.orderitem_set.exists():
             for order_item in self.orderitem_set.all():
-                subtotal_price += order_item.item_total_price
-        return subtotal_price
+                self.subtotal_price += order_item.product.price
+                self.save()
     
     def calculate_total_items(self):
         # Check if there are any order items
