@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+
+<!-- Title Block -->
+{% block title %}
+  Products
+{% endblock %} 
+
+<!-- Content Block -->
+{% block content %}
+<section id="register" class="py-5">
+    <div class="container">
+        <div style="max-width: 400px; margin:0 auto;">
+            <h3 class="text-center">Register</h3>
+            {% if error_messages %}
+                <ul class="text-danger">
+                    {% for message in error_messages %}
+                    <li>{{message}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{form.username}}
+                </div>
+                <div class="mb-3">
+                    {{form.email}}
+                </div>
+                <div class="mb-3">
+                    {{form.password1}}
+                </div>
+                <div class="mb-3">
+                    {{form.password2}}
+                </div>
+                <div class="mb-3">
+                    {{form.phone_number}}
+                </div>
+                <div class="mb-3">
+                    {{form.address}}
+                </div>
+                
+                <input type="submit"  class="btn btn-primary" value="Register" >
+            </form>
+        </div>
+       
+    </div>
+</section>
+
+
+{% endblock %}

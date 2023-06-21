@@ -1,6 +1,21 @@
-{% extends 'product/base.html' %} {% block title %}
+{% extends 'base.html' %}
+
+
+<!-- Title Block -->
+{% block title %}
   Product Details
-{% endblock %} {% block content %}
+{% endblock %} 
+
+
+
+<!-- Extra CSS -->
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'product/css/styles.css' %}">
+{% endblock %}
+
+<!-- Main Content-->
+{% block content %}
   <section class="py-5">
     <div class="container">
       <div class="row g-4">

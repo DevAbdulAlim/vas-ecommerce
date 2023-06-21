@@ -1,33 +1,32 @@
 <header>
   <nav class="navbar navbar-expand-lg" style="background-color: #0071dc">
     <div class="container">
-      <a class="navbar-brand text-white" href="/"><img class="logo" src="https://image.similarpng.com/very-thumbnail/2021/05/Letter-V-logo-design-template-on-transparent-background-PNG.png" alt="logo" height="45px" width="45px" /> VASEcom</a>
+      <a class="navbar-brand text-white" href="{% url 'core:home' %}"><img class="logo" src="https://image.similarpng.com/very-thumbnail/2021/05/Letter-V-logo-design-template-on-transparent-background-PNG.png" alt="logo" height="45px" width="45px" /> VASEcom</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav custom-navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/ecommerce/">Home</a>
+            <a class="nav-link" aria-current="page" href="{% url 'core:home' %}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/products">All Products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/ecommerce/cart">Cart</a>
+            <a class="nav-link" href="{% url 'cart:cart' %}">Cart</a>
           </li>
           {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'order:order' %}">My Order</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:profile' %}">Profile</a>
+          </li>
             <li class="nav-item">
-              <a class="nav-link" href="/ecommerce/order">My Order</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/ecommerce/profile">Profile</a>
-            </li>
-          {% endif %} {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
+              <a class="nav-link" href="{% url 'user:logout' %}">Logout</a>
             </li>
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
+              <a class="nav-link" href="{% url 'user:login' %}">Login</a>
             </li>
           {% endif %}
         </ul>

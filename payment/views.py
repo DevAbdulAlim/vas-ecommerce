@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from shopping.models import Cart, CartItem, Order, OrderItem
-from checkout.models import Address, Payment, Coupon
-from checkout.forms import ShippingAddressForm, GatewayForm
-from checkout.utils import calculate_shipping_charges, calculate_tax, calculate_discount, calculate_total_price
+from cart.models import Cart
+from order.models import Order
+from .models import Address, Payment
+from .forms import ShippingAddressForm, GatewayForm
+from .utils import calculate_shipping_charges, calculate_tax, calculate_discount, calculate_total_price
 
 
 # Create your views here.

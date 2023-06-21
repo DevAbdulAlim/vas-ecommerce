@@ -1,11 +1,9 @@
 from django.db import models
 from core.models import BaseModel
-from shopping.models import Order
 
 # Create your models here.
-
 class Address(BaseModel):
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    order = models.OneToOneField('order.Order', on_delete=models.CASCADE)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
@@ -13,12 +11,19 @@ class Address(BaseModel):
 
 
 class Payment(BaseModel):
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    order = models.OneToOneField('order.Order', on_delete=models.CASCADE)
     payment_method = models.CharField(max_length=100)
     card_number = models.CharField(max_length=100)
     expiry_date = models.DateField()
 
 
+class Transaction(models.Model):
+    #transaction information
+    pass
+
+class Gateway(BaseModel):
+    #gateway informaion
+    pass
 
 class Coupon(BaseModel):
     pass

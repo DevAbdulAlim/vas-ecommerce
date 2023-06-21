@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+
+<!-- Title Block -->
+{% block title %}
+  Login
+{% endblock %} 
+
+<!-- Content Block -->
+{% block content %}
+<section id="login" class="py-5">
+    <div class="container">
+        <div style="max-width: 400px; margin:0 auto;">
+            <h3 class="text-center">Login</h3>
+            {% if error_message %}
+                <div>
+                    <p class="text-danger">{{error_message}}</p>
+                </div>
+            {% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{form.username}}
+                </div>
+                <div class="mb-3">
+                    {{form.password}}
+                </div>
+                <input type="submit"  class="btn btn-primary" value="Login" >
+            </form>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

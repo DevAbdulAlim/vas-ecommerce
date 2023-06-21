@@ -1,19 +1,9 @@
 from django.db import models
 from core.models import BaseModel
 from django.contrib.auth.models import User
-from product.models import Product
+from django.apps import apps
 
 # Create your models here.
-class Cart(BaseModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-
-class CartItem(BaseModel):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-
-
 class Order(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, default='initiate')
@@ -24,13 +14,12 @@ class Order(BaseModel):
     subtotal_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2, default=0)
     total_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
 
-    def calculate_subtotal_price(self):
-   
-        # Check if there are any order items
-        if self.orderitem_set.exists():
-            for order_item in self.orderitem_set.all():
-                self.subtotal_price += order_item.product.price
-                self.save()
+  
+
+    def calculate_subtotal_price(self, item):
+        order_item = self.orderitem_set.get(pk=item)
+        self.subtotal_price += order_item.item_total_price
+        self.save()
     
     def calculate_total_items(self):
         # Check if there are any order items
@@ -48,17 +37,22 @@ class Order(BaseModel):
 
         # If it's a new order, transfer items from CartItem to OrderItem and delete CartItem
         if is_new_order:
+            Cart = apps.get_model('cart', 'Cart')
             cart = Cart.objects.get(user=self.user)
 
             for cart_item in cart.cartitem_set.all():
                 OrderItem.objects.create(order=self, product=cart_item.product, quantity=cart_item.quantity)
             cart.cartitem_set.all().delete()
 
+    def __str__(self):
+        # return str(self.user) # Return the string representation cause user is a relatinal field
+        return str(self.id)
+
    
 
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
     quantity = models.PositiveBigIntegerField(default=1)
 
     @property
@@ -68,4 +62,4 @@ class OrderItem(BaseModel):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.order.calculate_total_items()
-        self.order.calculate_subtotal_price()
+        self.order.calculate_subtotal_price(self.pk)
