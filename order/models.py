@@ -38,10 +38,17 @@ class Order(BaseModel):
         # If it's a new order, transfer items from CartItem to OrderItem and delete CartItem
         if is_new_order:
             Cart = apps.get_model('cart', 'Cart')
+            Product = apps.get_model('product', 'Product')
             cart = Cart.objects.get(user=self.user)
 
             for cart_item in cart.cartitem_set.all():
+                # Transfer cart items to order itmes
                 OrderItem.objects.create(order=self, product=cart_item.product, quantity=cart_item.quantity)
+
+                # Minus Product stock
+                product = Product.objects.get(id = cart_item.product.id)
+                product.stock = cart_item.product.stock - cart_item.quantity
+                product.save()
             cart.cartitem_set.all().delete()
 
     def __str__(self):

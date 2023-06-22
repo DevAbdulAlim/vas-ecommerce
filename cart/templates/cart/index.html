@@ -1,14 +1,72 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
-    Cart
-{% endblock  %}
-
+  Cart
+{% endblock %}
 
 {% block content %}
-<section>
+
+  <section class="py-5">
     <div class="container">
-        <h1>Cart</h1>
+      <div class="row g-4">
+        <div class="col-12 col-md-8">
+          <div class="row g-4">
+            {% for cart_item in cart_items %}
+              <div class="col-12 item">
+                <div class="card p-3" style="position: relative;">
+                  <button class="btn btn-danger" style="position: absolute; top: 5px; right: 5px;" onclick="deleteCartItem({{ cart_item.id }})"><i class="fa-solid fa-x"></i></button>
+
+                  <div class="row g-4 my-2">
+                    <div class="col-12 col-md-3 d-flex justify-content-center">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHGXWUCX7W1sTAsEBWeOm_9a7i-0H7x8S-Tg&usqp=CAU" alt="Product Image" style="max-width: 180px; max-height:180px;" />
+                    </div>
+                    <div class="col-12 col-md-9">
+                      <h5>{{ cart_item.product.name }}</h5>
+                      <p>
+                        <strong>Item price:</strong>$240
+                      </p>
+                      <p>
+                        <strong>Total price:</strong>$2400
+                      </p>
+                      <div class="cart-item">
+                        <div class="quantity-controls" data-cart-item-id="{{ cart_item.id }}">
+                          <button class="btn btn-primary decrease-btn">-</button>
+                          <span class="quantity">{{ cart_item.quantity }}</span>
+                          <button class="btn btn-primary increase-btn">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card p-3">
+            <h5>Cart Total</h5>
+            <br />
+            <p>
+              <strong>Subtotal:</strong>$200
+            </p>
+            <p>
+              <strong>Shipping Charg:</strong>$5
+            </p>
+            <hr />
+            <p>
+              <strong>Total:</strong>$200
+            </p>
+            <br />
+            <button class="btn btn-primary">Checkout</button>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-{% endblock  %}
+  </section>
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'cart/js/scripts.js' %}"></script>
+{% endblock %}

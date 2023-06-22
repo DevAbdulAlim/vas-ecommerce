@@ -26,6 +26,7 @@
         </div>
         <div class="col-12 col-md-6">
           <h3>{{ product.name }}</h3>
+      
           <p>
             <strong>Category:</strong> {{ product.category }}
           </p>
@@ -36,13 +37,29 @@
             <strong>Description:</strong> {{ product.description }}
           </p>
           <h5><strong>price:</strong>$ {{ product.price }}</h5>
-          <form id="add-to-cart-form" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="product_id" value="{{ product.id }}" />
-            <input class="form-control mt-4" type="number" name="quantity" min="1" value="1" max="{{ product.stock }}" style="max-width: 100px" />
+      
+          {% if product.stock == 0 %}
+          <h3 class="text-danger mt-4">Out of Stock</h3>
+          {% else %}
+          <p class="text-warning"><strong>Stock: </strong>{{product.stock}}</p>
 
-            <button type="submit" class="btn btn-primary mt-4">Add to cart</button>
+          {% if cart_item %}
+          <div class="cart-item mt-4">
+            <div class="quantity-controls" data-cart-item-id="{{ cart_item.id }}">
+              <button class="btn btn-primary decrease-btn">-</button>
+              <span class="quantity">{{ cart_item.quantity }}</span>
+              <button class="btn btn-primary increase-btn">+</button>
+            </div>
+          </div>
+          {% else %}
+
+
+          <form action="/user/cart/add/{{ product.id }}/" method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary mt-4" value="Add To Cart">
           </form>
+          {% endif %}
+       {% endif %}
         </div>
       </div>
       <div class="row pt-5">

@@ -1,36 +1,102 @@
 <header>
-  <nav class="navbar navbar-expand-lg" style="background-color: #0071dc">
-    <div class="container">
-      <a class="navbar-brand text-white" href="{% url 'core:home' %}"><img class="logo" src="https://image.similarpng.com/very-thumbnail/2021/05/Letter-V-logo-design-template-on-transparent-background-PNG.png" alt="logo" height="45px" width="45px" /> VASEcom</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav custom-navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'core:home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/products">All Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'cart:cart' %}">Cart</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'order:order' %}">My Order</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'user:profile' %}">Profile</a>
-          </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:logout' %}">Logout</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:login' %}">Login</a>
-            </li>
-          {% endif %}
-        </ul>
+  <nav class="navbar bg-body-tertiary shadow-sm">
+      <div class="container flex-nowrap">
+          <div class="d-flex">
+              <a class="navbar-brand" href="{% url 'core:home' %}"><i class="fa-brands fa-shopify"></i>shopify</a>
+
+              <div class="d-none d-md-block">
+                  <button id="myDropdownBtn" onclick="myDropdown()" class="btn btn-light">
+                      <i class="fa-solid fa-grip-vertical"></i>
+                      Categories
+                  </button>
+                  <div id="myDropdown" class="myDropdown mt-2">
+                      <div class="tab">
+                          <button>All Categories</button>
+                          <button id="defaultOpen" class="tablinks" onclick="openTab(event, 'first')">
+                              Laptop
+                          </button>
+                          <button id="defaultOpen" class="tablinks" onclick="openTab(event, 'second')">
+                              Comptuer
+                          </button>
+                      </div>
+                      <div id="first" class="tabcontent w-100">
+                          <div class="col-6">
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                          </div>
+                          <div class="col-6">
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                              <p>laptop-sub</p>
+                          </div>
+
+                      </div>
+                      <div id="second" class="tabcontent w-100">
+                          <div class="col-6">
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                          </div>
+                          <div class="col-6">
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                              <p>Desktop-sub</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <a class="d-md-none nav-link me-4" href=""><i class="fa-solid fa-cart-shopping p-2"></i>0</a>
+
+          <form class="d-none d-lg-flex w-50" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+
+          </form>
+          <form class="d-none d-md-flex d-lg-none" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+
+          </form>
+          <div class="d-none d-md-flex flex-nowrap">
+              <a class="nav-link me-4" href="{% url 'cart:list-cart-item' %}" ><i class="fa-solid fa-cart-shopping p-2"></i>Cart</a>
+
+              <div class="dropdown-center d-flex justify-content-end">
+                  <span class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" height="35px" width="35px" alt="">
+                  </span>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'user:profile' %}">Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'order:order' %}">orders</a></li>
+                      <li><a class="dropdown-item" href="{% url 'user:logout' %}">Logout</a></li>
+                  </ul>
+              </div>
+          </div>
       </div>
-    </div>
+  </nav>
+  <nav class="d-flex container justify-content-between mobile-nav d-block d-md-none fixed-bottom shadow p-3 rounded">
+      <a href="#"><i class="fa-solid fa-house d-block text-center"></i>Home</a>
+      <a href="#"><i class="fa-solid fa-magnifying-glass d-block text-center"></i>Search</a>
+      <a href="#"><i class="fa-solid fa-list d-block text-center"></i>Categories</a>
+      <a href="#"><i class="fa-solid fa-user d-block text-center"></i>Profile</a>
   </nav>
 </header>
