@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Cart
+{% endblock %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'payment/css/styles.css' %}">
+{% endblock  %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+      <div class="card p-4" style="max-width: 600px; margin: 0 auto;">
+        <h3 class="text-center">Checkout</h3>
+        <div class="mb-5 mt-5 d-flex justify-content-between align-items-center">
+          <span><span class="bg-primary text-white  step-num"><i class="fa-solid fa-check"></i></span><span class="">Payment details</span></span>
+          <span class="step-gap bg-secondary"></span>
+          <span><span class="bg-primary text-white  step-num"><i class="fa-solid fa-check"></i></span><span class="">Payment details</span></span>
+          <span class="step-gap bg-secondary"></span>
+          <span><span class="bg-primary text-white  step-num">3</span><span class="">Review your order</span></span>
+        </div>
+   <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">{{form.street}}</div>
+    <div class="mb-3">{{form.city}}</div>
+    <div class="mb-3">{{form.state}}</div>
+    <div class="mb-3">{{form.country}}</div>
+    <input type="submit" class="btn btn-primary" value="Place Order">
+   </form>
+      </div>
+   
+    </div>
+  </section>
+{% endblock %}

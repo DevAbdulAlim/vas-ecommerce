@@ -103,3 +103,14 @@ function myDropdown() {
     }
   })
 
+
+  // payment 
+  function toggleDiv(divId) {
+    var hiddenDiv = document.getElementById(divId);
+
+    if (hiddenDiv.style.display === 'none') {
+      hiddenDiv.style.display = 'block';
+    } else {
+      hiddenDiv.style.display = 'none';
+    }
+  }

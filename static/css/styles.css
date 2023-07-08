@@ -59,3 +59,10 @@ footer {
   text-decoration: none;
   color: black;
 }
+
+
+
+/* Bootstrap */
+.btn-success {
+  background-color: rgb(26, 181, 26);
+}

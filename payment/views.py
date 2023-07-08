@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views import View
 from cart.models import Cart
 from order.models import Order
 from .models import Address, Payment
@@ -8,59 +9,40 @@ from .utils import calculate_shipping_charges, calculate_tax, calculate_discount
 
 # Create your views here.
 
-def checkout(request):
-    # Assuming the authenticated user is accessing this view or you can add authenticate decorator
-    user = request.user
+class AddAddress(View):
+    def get(self, request):
+        
+        form = ShippingAddressForm()
+        return render(request, 'payment/address.html', {'form': form})
 
-    # Retrive the cart for the user
-    cart = Cart.objects.get(user=user)
-
-    # Create an order
-    order = Order.objects.create(user=user)
-
-    # Transfer items from CartItem to OrderItem
-    # have done in the model
-    # for cart_item in cart.cartitem_set.all():
-    #     OrderItem.objects.create(order=order, product=cart_item.product, quantity=cart_item.quantity)
-
-    # cart.cartitem_set.all().delete()
-
-    # Perform any additional checkout logic
-
-    # Redirect or rendera success message
-
-def add_shipping_address(request):
-     # Assuming the authenticated user is accessing this view or you can add authenticate decorator
-
-    if request.method == 'POST':
-
-        user = request.user
-
-        # You can use order id passing through url paremeter or use the latest filter for filtering out the latest order placed by the user 
-        order = Order.objects.filter(user=user).latest('created_at')
-
+    def post(self, request):
+        order = Order.objects.filter(user=request.user).latest('created_at')
         form = ShippingAddressForm(request.POST)
         if form.is_valid():
-
-            # Crate an address and associate it with the order
-            address = Address.objects.create(
-                order=order,
-                street=form.cleaned_data['street'],
-                city=form.cleaned_data['city'],
-                state=form.cleaned_data['state'],
-                country=form.cleaned_data['country'],
-                # Add other fields as needed
-            )
-
+            address, created = Address.objects.get_or_create(order=order) #created holding True or false if the address was found or not
+            address.street = form.cleaned_data['street']
+            address.city = form.cleaned_data['city']
+            address.state = form.cleaned_data['state']
+            address.country = form.cleaned_data['country']
             address.save()
 
-            return redirect('gateway')
-    else:
-        form = ShippingAddressForm()
-    return render(request, 'shipping_address.html', {'form': form})
+            return redirect('payment:payment')
+        
+        return render(request, 'payment/address.html', {'form': form})
+
+class AddGateway(View):
+    def get(self, request):
+        return render(request, 'payment/payment.html')
+    
+    def post(self, request):
+        return redirect('payment:review')
+    
+class PlaceOrder(View):
+    def get(self, request):
+        return render(request, 'payment/review.html')
 
 def addGateway(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         user = request.user
 
         # You can use order id passing through url paremeter or use teh latest filter for filtering out the latest order placed by the user

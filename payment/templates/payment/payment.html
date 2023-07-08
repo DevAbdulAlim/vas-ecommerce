@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Cart
+{% endblock %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'payment/css/styles.css' %}">
+{% endblock  %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+      <div class="card p-4" style="max-width: 600px; margin: 0 auto;">
+        <h3 class="text-center">Checkout</h3>
+        <div class="mb-5 mt-5 d-flex justify-content-between align-items-center">
+          <span><span class="bg-primary text-white  step-num"><i class="fa-solid fa-check"></i></span><span class="">Payment details</span></span>
+          <span class="step-gap bg-secondary"></span>
+          <span><span class="bg-primary text-white  step-num">2</span><span class="">Payment details</span></span>
+          <span class="step-gap bg-secondary"></span>
+          <span><span class="bg-secondary text-white  step-num">3</span><span class="text-secondary">Review your order</span></span>
+        </div>
+
+        <div>
+          <div>
+            <input type="radio" id="radio1" name="group" onchange="toggleDiv('div1')" />
+            <label for="radio1">Expand 1</label>
+
+            <div id="div1" style="display: none;">
+              This is the hidden div for radio 1.
+            </div>
+          </div>
+           
+
+          <div>
+            <input type="radio" id="radio2" name="group" onchange="toggleDiv('div2')" />
+            <label for="radio2">Expand 2</label>
+
+            <div id="div2" style="display: none;">
+              This is the hidden div for radio 2.
+            </div>
+          </div>
+
+      </div>
+   
+    </div>
+  </section>
+{% endblock %}

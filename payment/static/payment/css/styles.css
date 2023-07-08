@@ -1,0 +1,13 @@
+.step-num {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+.step-gap {
+    height: 1px;
+    width: 1rem;
+}
