@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n0luxo1vsdlrv&ggu963s&3*3@kgr749hcsy^mgauevscv5d+8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -142,8 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Stripe
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51NJShpSEl3BLLeTfOjk7cZRBIlRx6P7stxroOXrCuJkV8uRYdAxRzsjAID2WbTomGwfHmsSC9MlSxfL7vLFL8O1800b4m50L4b'
-STRIPE_SECRET_KEY = 'sk_test_51NJShpSEl3BLLeTfIAWeX5thnZ4im9IpdiZsW6thk3reUS2hmJ4TA99R3FEz2oc5Gpoyv3Nkxt02utJrvny9o8Zh00MqJrv7Sy'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51NRuuKIM0hbfA7lP2gJYQdmBNAWiMRjBCDnNnDaJYPd0SK461MtVeQyjHETDHLCY0j3coGr6DXPNxEXNOtB5enB900bm7Y4t8K'
+STRIPE_SECRET_KEY = 'sk_test_51NRuuKIM0hbfA7lPOu3myHeNtVmtXH7Hrn2QpgpUkXKV75Sc9xaw8wwUBGwnQWPmzJ0ynpirpEPvmuShOlE1rKU1008D89qrST'
 import stripe
 
 # Set your Stripe API key

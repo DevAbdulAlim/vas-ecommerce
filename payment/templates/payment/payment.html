@@ -1,0 +1,78 @@
+<!-- payment.html -->
+
+<form id="payment-form" method="post" action="{% url 'payment:payment' %}">
+    {% csrf_token %}
+    
+    <div id="card-element" class="card-element">
+      <!-- Stripe Card Element will be inserted here -->
+    </div>
+    
+    <!-- Display any validation errors -->
+    <div id="card-errors" role="alert"></div>
+    
+    <button type="submit" id="pay-button" class="pay-button" disabled>Pay</button>
+  </form>
+  
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    var stripe = Stripe('{{ stripe_publishable_key }}');
+    var elements = stripe.elements();
+    
+    var cardElement = elements.create('card', {
+      style: {
+        base: {
+          iconColor: '#666EE8',
+          color: '#31325F',
+          lineHeight: '40px',
+          fontWeight: 400,
+          fontFamily: 'Helvetica Neue, Helvetica, sans-serif',
+          fontSize: '15px',
+          '::placeholder': {
+            color: '#CFD7E0',
+          },
+        },
+      },
+    });
+    
+    cardElement.mount('#card-element');
+    
+    // Handle real-time validation errors from the card Element
+    cardElement.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      var payButton = document.getElementById('pay-button');
+      
+      if (event.error) {
+        displayError.textContent = event.error.message;
+        payButton.disabled = true;
+      } else {
+        displayError.textContent = '';
+        payButton.disabled = false;
+      }
+    });
+    
+    // Handle form submission
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+      }).then(function(result) {
+        if (result.error) {
+          var displayError = document.getElementById('card-errors');
+          displayError.textContent = result.error.message;
+        } else {
+          var paymentMethodId = result.paymentMethod.id;
+          var paymentMethodIdField = document.createElement('input');
+          paymentMethodIdField.setAttribute('type', 'hidden');
+          paymentMethodIdField.setAttribute('name', 'payment_method_id');
+          paymentMethodIdField.setAttribute('value', paymentMethodId);
+          form.appendChild(paymentMethodIdField);
+          
+          form.submit();
+        }
+      });
+    });
+  </script>
+  
