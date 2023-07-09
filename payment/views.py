@@ -6,39 +6,31 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def payment_view(request):
     if request.method == 'POST':
-        # Generate test token using the Stripe test card details
-        test_token = 'tok_visa'  # Replace with the test token generated for your desired test card
-
+        payment_method_id = request.POST.get('payment_method_id')
         try:
-            session = stripe.checkout.Session.create(
-                payment_method_types=['card'],
-                line_items=[
-                    {
-                        'price_data': {
-                            'currency': 'usd',
-                            'product_data': {
-                                'name': 'Product Name',
-                            },
-                            'unit_amount': 1000,  # Amount in cents
-                        },
-                        'quantity': 1,
-                    },
-                ],
-                mode='payment',
-                success_url='http://www.google.com/',  # Replace with your success URL
-                cancel_url='http://yourwebsite.com/payment/cancel/',  # Replace with your cancel URL
+            # Process the payment using the payment_method_id and perform any necessary business logic
+            # You can use the Stripe API to create a charge, subscription, or perform other actions
+            # Replace the following code with your actual payment processing logic
+            stripe.PaymentIntent.create(
+                payment_method=payment_method_id,
+                amount=1000,
+                currency='usd',
+                confirm=True,
             )
-
-            return redirect(session.url)
-
+            
+            return redirect('payment:payment_success')  # Redirect to your own success page
+            
         except stripe.error.CardError as e:
+            # Handle specific card errors
             error_message = e.user_message
             return render(request, 'payment/payment.html', {'error_message': error_message})
+        
+        except stripe.error.StripeError:
+            # Handle other Stripe errors
+            error_message = "An error occurred while processing the payment. Please try again later."
+            return render(request, 'payment/payment.html', {'error_message': error_message})
 
-    return render(request, 'payment/payment.html', {
-        'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
-        'stripe_secret_key': settings.STRIPE_SECRET_KEY
-    })
+    return render(request, 'payment/payment.html', {'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY})
 
 def payment_success_view(request):
     return render(request, 'payment/payment_success.html')

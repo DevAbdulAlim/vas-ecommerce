@@ -1,15 +1,15 @@
-<!-- payment.html -->
-
 <form id="payment-form" method="post" action="{% url 'payment:payment' %}">
     {% csrf_token %}
-    
+  
     <div id="card-element" class="card-element">
       <!-- Stripe Card Element will be inserted here -->
     </div>
-    
+  
     <!-- Display any validation errors -->
     <div id="card-errors" role="alert"></div>
-    
+  
+    <input type="hidden" name="payment_method_id" id="payment-method-id" value="">
+  
     <button type="submit" id="pay-button" class="pay-button" disabled>Pay</button>
   </form>
   
@@ -17,7 +17,7 @@
   <script>
     var stripe = Stripe('{{ stripe_publishable_key }}');
     var elements = stripe.elements();
-    
+  
     var cardElement = elements.create('card', {
       style: {
         base: {
@@ -33,14 +33,14 @@
         },
       },
     });
-    
+  
     cardElement.mount('#card-element');
-    
+  
     // Handle real-time validation errors from the card Element
     cardElement.addEventListener('change', function(event) {
       var displayError = document.getElementById('card-errors');
       var payButton = document.getElementById('pay-button');
-      
+  
       if (event.error) {
         displayError.textContent = event.error.message;
         payButton.disabled = true;
@@ -49,12 +49,12 @@
         payButton.disabled = false;
       }
     });
-    
+  
     // Handle form submission
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-      
+  
       stripe.createPaymentMethod({
         type: 'card',
         card: cardElement,
@@ -64,12 +64,7 @@
           displayError.textContent = result.error.message;
         } else {
           var paymentMethodId = result.paymentMethod.id;
-          var paymentMethodIdField = document.createElement('input');
-          paymentMethodIdField.setAttribute('type', 'hidden');
-          paymentMethodIdField.setAttribute('name', 'payment_method_id');
-          paymentMethodIdField.setAttribute('value', paymentMethodId);
-          form.appendChild(paymentMethodIdField);
-          
+          document.getElementById('payment-method-id').value = paymentMethodId;
           form.submit();
         }
       });
