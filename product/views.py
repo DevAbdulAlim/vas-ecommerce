@@ -38,10 +38,15 @@ def detail(request, product_id):
 
     # Check if the product is alread added to the cart
     if request.user.is_authenticated:
-        cart = Cart.objects.get(user = request.user)
-        cart_items = CartItem.objects.filter(cart = cart, product = product_id)
-        if cart_items:
-           cart_item = cart_items.all()[0]
+        try:
+            cart = Cart.objects.get(user_id = request.user.id)
+            cart_items = CartItem.objects.filter(cart = cart, product = product_id)
+            if cart_items:
+                cart_item = cart_items.all()[0]
+        except Cart.DoesNotExist:
+            pass
+        except CartItem.DoesNotExist:
+            pass
   
 
 

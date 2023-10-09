@@ -43,15 +43,23 @@ class RegisterView(View):
 
 
 class LoginView(View):
+
     def get(self, request):
         form = LoginForm()
         return render(request, 'user/login.html', {'form': form})
     
     def post(self, request):
         form = LoginForm(data=request.POST) # Pass the 'data' parameter here
+        next_url = request.GET.get('next')  # Access Next URL
+
+        
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            if next_url:
+                if "user/cart/add" in next_url:
+                    return redirect('product:details', product_id=2)
+                return redirect(next_url)
             return redirect('user:profile')
         else:
             error_message = "Username and password do not match."

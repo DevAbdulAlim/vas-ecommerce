@@ -3,15 +3,17 @@ from django.http import JsonResponse
 from django.views import View
 from .models import Cart, CartItem
 from product.models import Product
+from vasEcommerce.mixins.login_mixins import LoginRequiredMixin
 import json
 
 # Create your views here.
-class ListCartItem(View):
+class ListCartItem(LoginRequiredMixin, View):
     def get(self, request):
         cart_items = CartItem.objects.all()
         return render(request, 'cart/index.html', {'cart_items': cart_items})
-    
-class AddCartItem(View):
+
+
+class AddCartItem(LoginRequiredMixin, View):
     def post(self, request, product_id):
         try:
             product = get_object_or_404(Product, id=product_id)
@@ -27,7 +29,8 @@ class AddCartItem(View):
         except Exception as e:
             return JsonResponse({'success': True, 'message': str(e)})
 
-class UpdateCartItem(View):
+
+class UpdateCartItem(LoginRequiredMixin, View):
     def post(self, request, cart_item_id):
         data = json.loads(request.body)
         action = data.get('action')
@@ -51,7 +54,9 @@ class UpdateCartItem(View):
 
         return JsonResponse({'success': True, 'message': 'Cart item quantity updated', 'quantity': cart_item.quantity,})
 
-class DeleteCartItem(View):
+
+
+class DeleteCartItem(LoginRequiredMixin, View):
     def post(self, request, cart_item_id):
         print('delete')
         try:
