@@ -1,16 +1,32 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content%}
-<section id="featuredCategories" class="py-5">
+{% load static %}
+<section id="hero" class="py-5">
+<div class="container">
+  <div class="row">
+    <div class="col-12 m-auto col-md-6">
+      <h1>50% Off For Your First Shopping</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convalliss.</p>
+      <button type="button" class="btn btn-primary">Buy Now</button>
+    </div>
+    <div class="col-12 col-md-6">
+    <img src="{% static 'img/nike-black.png' %}" alt="">
+    </div>
+  </div>
+ 
+</div>
+</section>
+<section id="featuredCategories" class="f_cat py-5">
     <h2 class="text-center">Featured Category</h2>
-    <p class="text-center">Get Your Desired Product from Featured Category!<p>
+    <p class="text-center text-secondary">Get Your Desired Product from Featured Category!<p>
   <div class="container">
-    <div class="row g-4">
+    <div class="row g-3">
         {% for category in categories %}
       <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-        <div class="card">
-          <img src="" alt="" />
-          <p>{{category.name}}</p>
+        <div class="card text-center p-3">
+          <img src="{% static 'img/cat.png' %}" height="50px" width="50px" alt="" />
+          <p class="m-2">{{category.name}}</p>
         </div>
       </div>
       {% endfor %}
@@ -19,7 +35,7 @@
 </section>
 <section id="featuredProducts" class="py-5">
     <h2 class="text-center">Featured Product</h2>
-    <p class="text-center">Check & Get Your Desired Product!
+    <p class="text-center text-secondary">Check & Get Your Desired Product!
         <p>
   <div class="container">
     <div class="row g-4">
@@ -28,8 +44,8 @@
         <div class="card custom-card">
             <img src="{{ product.image.url }}" class="p-2" alt="{{ product.name }}" height="200px" />
             <div class="card-body">
-              <h5 class="text-warning"><b>Price:</b> {{ product.price }}</h5>
-              <a href="{{ product.id }}">{{ product.name }}</a>
+              <h5 class="text-price"><b>$</b> {{ product.price }}</h5>
+              <h3 class="fs-4"><a href="{% url 'product:details' product_id=product.id %}" class="text-primary text-decoration-none">{{ product.name }}</a></h3>
             </div>
           </div>
       </div>
@@ -37,13 +53,24 @@
     </div>
   </div>
 </section>
-<section id="newsletter">
+<section id="newsletter" class="py-5 text-center">
     <h2>Subscribe To Our Newsletter</h2>
-    <p>and receive $20 coupon for the first Shopping</p>
-    <form action="">
+    <p class=" text-secondary">and receive $20 coupon for the first Shopping</p>
+
+    <div class="d-flex justify-content-center newsletter">
+      <form action="">
         {% csrf_token %}
-        <input type="text" name="email" placeholder="Enter Email">
-        <button type="submit">Subscribe</button>
+        <div class="mb-3">
+          <input type="text" class="form-control" name="email" placeholder="Enter Email">
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </div>
+       
+      
     </form>
+    </div>
+     
+    
 </section>
 {% endblock %}
