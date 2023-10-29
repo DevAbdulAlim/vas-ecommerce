@@ -1,3 +1,4 @@
+/* GLOBAL */
 * {
   box-sizing: border-box;
 }
@@ -8,17 +9,10 @@ body {
   display: flex;
   flex-direction: column;
 }
-main {
-  flex-grow: 1;
-}
-footer {
-  height: 120px;
-  width: 100%;
-}
 
-
-
+/* ========= HEADER ======== */
 /* Navbar */
+
 .myDropdown {
   position: absolute;
   display: none;
@@ -54,15 +48,54 @@ footer {
   float: left;
   padding: 2rem;
 }
+
+/* ========== MAIN ========== */
+main {
+  flex-grow: 1;
+}
+
+/* ======== FOOTER ======== */
+footer {
+  background-color: #1b273d;
+  color: #8d939e;
+}
+
+footer h4 {
+  color: white;
+  padding: 5px;
+}
+
+footer .social-icon i {
+  color: white;
+  font-size: 2rem;
+  margin-right: 15px;
+}
+
+footer ul li {
+  list-style-type: none;
+}
+
+footer ul li a {
+  color: #8d939e;
+  text-decoration: none;
+}
+
+footer ul li a:hover {
+  color: white;
+}
+
+.copyright {
+  margin: 0;
+  background-color: #131d30;
+}
+
 /* Mobile nav */
 .mobile-nav a {
   text-decoration: none;
   color: black;
 }
 
-
-
-/* Bootstrap */
+/* BOOTSTRAP OVERRIDE */
 .btn-success {
   background-color: rgb(26, 181, 26);
 }
