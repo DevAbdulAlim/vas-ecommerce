@@ -45,32 +45,62 @@ class CashPayment(View):
 class CardPayment(View):
     def get(self, request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
+    
+        
+         # Define the line items for the session
+        line_items = [
+            {
+                'price_data': {
+                    'currency': 'usd',
+                    'unit_amount': 10000,  # Price in cents (e.g., $1.00 is 100 cents)
+                    'product_data': {
+                        'name': 'Product 1'
+                    }
+                },
+                'quantity': 2,  # Quantity of Product 1
+            },
+            {
+                'price_data': {
+                    'currency': 'usd',
+                    'unit_amount': 200,  # Price in cents (e.g., $2.00 is 200 cents)
+                    'product_data': {
+                        'name': 'Product 2'
+                    }
+                },
+                'quantity': 1,  # Quantity of Product 2
+            },
+            # Add more line items for additional products with their respective quantities
+        ]
+        
+        # Calculate the dynamic shipping charge based on your criteria
+        dynamic_shipping_charge = 10  # Implement this function
+        
+        # Include the dynamic shipping charge in the line items
+        line_items.append({
+            'price_data': {
+                'currency': 'usd',
+                'unit_amount': dynamic_shipping_charge,  # Calculate the charge dynamically
+                'product_data': {
+                    'name': 'Shipping Charge'
+                }
+            },
+            'quantity': 1,  # Quantity of shipping charge
+        })
+
         
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            line_items=[
-                # for stripe's product
-                # {
-                # 'price': 'price_1O7E5RIM0hbfA7lPC0pxAOXt',
-                # 'quantity': 1,
-                # }
-                
-                # for dynamic product
-                {
-                    'price_data': {
-                        'currency': 'usd',
-                        'unit_amount': 100,
-                        'product_data': {
-                            'name': 'Sample Product'
-                        }
-                    },
-                    'quantity': 1,
-                }
-                ],
-              mode='payment',
+            line_items=line_items,
+            # automatic_tax={"enabled": True},
+            mode='payment',
             success_url = request.build_absolute_uri(reverse('payment:review')),
             cancel_url=request.build_absolute_uri(reverse('core:home')),
+            # billing_address_collection='required',
+            # shipping_address_collection= {'allowed_countries': ['US', 'CA'],}
         )
+        
+        transaction_id = session['payment_intent']
+        print(transaction_id)
         return redirect(session.url, code=303)
     
 class PlaceOrder(View):

@@ -2,9 +2,17 @@ from django.contrib import admin
 from .models import Cart, CartItem
 
 # inlines here
-class CartItemInline(admin.StackedInline):
+class CartItemInline(admin.TabularInline):
     model = CartItem
-    extra = 1
+    extra = 0
+    readonly_fields = ['product_price']  
+    def product_price(self, instance):
+        return instance.product.price
+
+    def has_add_permission(self, request, obj=None):
+        return False  # Hide the "Add" button for the read-only field
+
+    product_price.short_description = 'Unit Price'
 
 
 # custimization here

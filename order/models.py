@@ -5,8 +5,16 @@ from django.apps import apps
 
 # Create your models here.
 class Order(BaseModel):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('delivered', 'Delivered'),
+        ('canceled', 'Cancelled'),
+    ]
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, default='initiate')
+    status = models.CharField(max_length=50,
+choices=STATUS_CHOICES, default='pending')
     total_items = models.PositiveIntegerField(null=True, blank=True)
     shipping_charges = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
     tax_amount = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
@@ -62,6 +70,9 @@ class OrderItem(BaseModel):
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
     quantity = models.PositiveBigIntegerField(default=1)
 
+    def __str__(self):
+        return self.product.name
+    
     @property
     def item_total_price(self):
         return self.product.price * self.quantity
