@@ -156,3 +156,9 @@ footer ul li a:hover {
 .btn-primary:active {
   background-color: #16443f !important;
 }
+
+.pagination > li > a {
+  border: none !important;
+  box-shadow: rgba(3, 0, 71, 0.09) 0px 1px 3px;
+
+}

@@ -5,6 +5,10 @@ from order.models import Order
 from .models import Address, Payment
 from .forms import ShippingAddressForm, GatewayForm
 from .utils import calculate_shipping_charges, calculate_tax, calculate_discount, calculate_total_price
+import stripe
+from django.conf import settings
+from django.http import JsonResponse
+from django.urls import reverse
 
 
 # Create your views here.
@@ -30,40 +34,54 @@ class AddAddress(View):
         
         return render(request, 'payment/address.html', {'form': form})
 
-class AddGateway(View):
+class PaymentView(View):
     def get(self, request):
         return render(request, 'payment/payment.html')
+
+class CashPayment(View):
+    def get(self, request):
+        return redirect('order_success')
     
-    def post(self, request):
-        return redirect('payment:review')
+class CardPayment(View):
+    def get(self, request):
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                # for stripe's product
+                # {
+                # 'price': 'price_1O7E5RIM0hbfA7lPC0pxAOXt',
+                # 'quantity': 1,
+                # }
+                
+                # for dynamic product
+                {
+                    'price_data': {
+                        'currency': 'usd',
+                        'unit_amount': 100,
+                        'product_data': {
+                            'name': 'Sample Product'
+                        }
+                    },
+                    'quantity': 1,
+                }
+                ],
+              mode='payment',
+            success_url = request.build_absolute_uri(reverse('payment:review')),
+            cancel_url=request.build_absolute_uri(reverse('core:home')),
+        )
+        return redirect(session.url, code=303)
     
 class PlaceOrder(View):
     def get(self, request):
+       return redirect('order_success')
+
+
+class Review(View):
+    def get(self, request):
         return render(request, 'payment/review.html')
-
-def addGateway(request):
-    if request.method == 'POST': 
-        user = request.user
-
-        # You can use order id passing through url paremeter or use teh latest filter for filtering out the latest order placed by the user
-        order = Order.objects.filter(user=user).latest('created_at')
-
-        form = GatewayForm(request.POST)
-        if form.is_valid():
-            payment = Payment.objects.create(
-                order = order,
-                payment_method = form.cleaned_data['payment_method'],
-                card_number = form.cleaned_data['card_number'],
-                expiry_date = form.cleaned_data['expiry_date'],
-            )
-
-            payment.save()
-
-            return redirect('place-order')
-    else:
-        form = GatewayForm()
-
-    return render(request, 'checkout/Gateway.html', {'form': form})
+        
 
 def placeOrder(request):
     # Assuming the authenticated user is accessing this view

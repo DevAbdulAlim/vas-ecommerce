@@ -174,3 +174,7 @@ JET_THEMES = [
         'title': 'Light Gray'
     }
 ]
+
+# Stripe api keys
+STRIPE_PUBLIC_KEY='pk_test_51NRuuKIM0hbfA7lP2gJYQdmBNAWiMRjBCDnNnDaJYPd0SK461MtVeQyjHETDHLCY0j3coGr6DXPNxEXNOtB5enB900bm7Y4t8K'
+STRIPE_SECRET_KEY='sk_test_51NRuuKIM0hbfA7lPOu3myHeNtVmtXH7Hrn2QpgpUkXKV75Sc9xaw8wwUBGwnQWPmzJ0ynpirpEPvmuShOlE1rKU1008D89qrST'

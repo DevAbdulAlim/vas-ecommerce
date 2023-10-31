@@ -1,0 +1,89 @@
+{% extends 'base.html' %} 
+    
+<!-- Content Block -->
+{% block content %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-secondary">Dashboard</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                </li>
+                            </ul>
+                            <br />
+                            <p class="text-secondary">Account Settings</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    {% block subContent %}
+
+                    {% endblock %}
+                    
+                </div>
+            </div>
+
+            <!-- Offcanvas -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                        Offcanvas
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <p>Dashboard</p>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                        </li>
+                    </ul>
+                    <br />
+                    <p>Account Settings</p>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+{% endblock %}

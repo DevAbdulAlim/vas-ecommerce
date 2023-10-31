@@ -1,0 +1,44 @@
+-- database: e:\vas-ecommerce\db.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "product_category";
+-- database: e:\vas-ecommerce\db.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "product_category";
+
+INSERT INTO product_category (name, slug) VALUES
+('Electronics', 'electronics'),
+('Clothing', 'clothing'),
+('Books', 'books'),
+('Toys', 'toys'),
+('Furniture', 'furniture'),
+('Jewelry', 'jewelry'),
+('Sports Equipment', 'sports-equipment'),
+('Home Appliances', 'home-appliances'),
+('Automotive', 'automotive'),
+('Beauty and Health', 'beauty-and-health');
+
+
+INSERT INTO product_category (name, slug) VALUES
+('Kitchen Appliances', 'kitchen-appliances'),
+('Outdoor Gear', 'outdoor-gear'),
+('Office Supplies', 'office-supplies'),
+('Music Instruments', 'music-instruments'),
+('Garden Tools', 'garden-tools');
+
+-- Insert 10 products into categories with IDs 1 to 5
+-- Insert 10 products into categories with IDs 1 to 5
+INSERT INTO product_product (category_id, name, slug, stock, description, price, image) VALUES
+(1, 'iPhone 13 Pro', 'iphone-13-pro', 50, 'The latest iPhone model from Apple.', 1099.99, 'iphone-13-pro.jpg'),
+(2, 'Slim-Fit Suit', 'slim-fit-suit', 30, 'Elegant slim-fit suit for men.', 299.99, 'mens-suit.jpg'),
+(3, 'Sorcerers Stone Book', 'sorcerers-stone-book', 100, 'The first book in the Harry Potter series.', 12.99, 'harry-potter-book.jpg'),
+(4, 'LEGO Millennium Falcon', 'lego-millennium-falcon', 15, 'Build the iconic Millennium Falcon with LEGO.', 199.99, 'lego-millennium-falcon.jpg'),
+(5, 'Queen Bed Frame', 'queen-bed-frame', 20, 'Sturdy and stylish bed frame for queen-size mattresses.', 299.99, 'bed-frame.jpg'),
+(1, 'Samsung Galaxy Watch', 'samsung-galaxy-watch', 40, 'The latest smartwatch from Samsung.', 249.99, 'samsung-watch.jpg'),
+(2, 'Wireless Headphones', 'wireless-headphones', 50, 'High-quality wireless headphones for on-the-go.', 79.99, 'headphones.jpg'),
+(3, 'The Great Gatsby Book', 'the-great-gatsby-book', 75, 'F. Scott Fitzgeralds classic novel.', 9.99, 'great-gatsby-book.jpg'),
+(4, 'Adjustable Dumbbells Set', 'adjustable-dumbbells-set', 10, 'A set of adjustable dumbbells for home workouts.', 149.99, 'dumbbells.jpg'),
+(5, 'Spa Gift Set', 'spa-gift-set', 35, 'Luxurious spa gift set for relaxation.', 39.99, 'spa-gift-set.jpg');
