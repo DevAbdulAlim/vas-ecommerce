@@ -1,11 +1,30 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Profile
+from order.models import Order
 from django.shortcuts import render,redirect
 from django.views import View
 from .forms import RegistrationForm, LoginForm
+from django.core.paginator import Paginator, EmptyPage
 
 # Create your views here.
+class OrderView(View):
+    def get(self, request):
+        orders = Order.objects.filter(user=request.user)
+        paginator = Paginator(orders, 4)
+        page_number = request.GET.get('page', 1)
+        
+        try:
+            page = paginator.page(page_number)
+        except EmptyPage:
+            page = paginator.page(1)
+            
+        # Calculate the range of page numbers to display
+        page_range = range(max(1, page.number - 2), min(paginator.num_pages, page.number + 2) + 1)
+
+            
+        return render(request, 'user/orders.html', {'orders': page, 'page_range': page_range})
+    
 class ProfileView(View):
     def get(self, request):
         return render(request, 'user/profile.html')

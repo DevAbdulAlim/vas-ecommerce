@@ -1,4 +1,8 @@
 {% extends 'base.html' %} 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'user/css/styles.css' %}">
+{% endblock %}
     
 <!-- Content Block -->
 {% block content %}
@@ -11,26 +15,26 @@
                             <p class="text-secondary">Dashboard</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                    <a href="{% url 'user:orders' %}" class="nav-link text-primary"><i class="bi bi-bag-check-fill"></i> Orders</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                    <a href="" class="nav-link disabled"><i class="bi bi-bag-heart-fill"></i> Wishlist</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                    <a href="" class="nav-link disabled"><i class="bi bi-headset"></i> Support Tickets</a>
                                 </li>
                             </ul>
                             <br />
                             <p class="text-secondary">Account Settings</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                    <a href="" class="nav-link text-primary"><i class="bi bi-person-fill"></i> Profile Info</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                    <a href="" class="nav-link disabled"><i class="bi bi-geo-alt-fill"></i> Addresses</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                                    <a href="" class="nav-link disabled"><i class="bi bi-credit-card-fill"></i> Payment Methods</a>
                                 </li>
                             </ul>
                         </div>
@@ -50,7 +54,7 @@
                 aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                        Offcanvas
+                       User
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
@@ -58,26 +62,26 @@
                     <p>Dashboard</p>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                            <a href="{% url 'user:orders' %}" class="nav-link text-primary"><i class="bi bi-bag-check-fill"></i> Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                            <a href="" class="nav-link disabled"><i class="bi bi-bag-heart-fill"></i> Wishlist</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                            <a href="" class="nav-link disabled"><i class="bi bi-headset"></i> Support Tickets</a>
                         </li>
                     </ul>
                     <br />
                     <p>Account Settings</p>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                            <a href="{% url 'user:profile' %}" class="nav-link text-primary"><i class="bi bi-person-fill"></i> Profile Info</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                            <a href="" class="nav-link disabled"><i class="bi bi-geo-alt-fill"></i> Addresses</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
+                            <a href="" class="nav-link disabled"><i class="bi bi-credit-card-fill"></i> Payment Methods</a>
                         </li>
                     </ul>
                 </div>

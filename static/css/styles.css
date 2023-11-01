@@ -143,9 +143,7 @@ footer ul li a:hover {
   outline: none;
   box-shadow: rgba(3, 0, 71, 0.09) 0px 1px 3px;
 }
-.text-primary {
-  color: rgb(55, 63, 80) !important;
-}
+
 .btn-primary {
   border: #205d56;
   background-color: #205d56;

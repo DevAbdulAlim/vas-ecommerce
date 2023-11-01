@@ -44,8 +44,9 @@
         <div class="card custom-card">
             <img src="{{ product.image.url }}" class="p-2" alt="{{ product.name }}" height="200px" />
             <div class="card-body">
-              <h5 class="text-price"><b>$</b> {{ product.price }}</h5>
-              <h3 class="fs-4"><a href="{% url 'product:details' product_id=product.id %}" class="text-primary text-decoration-none">{{ product.name }}</a></h3>
+             
+              <h3 class="fs-6"><a href="{% url 'product:details' product_id=product.id %}" class="text-primary text-decoration-none">{{ product.name }}</a></h3>
+              <p class="text-price fs-6"><b>$</b> {{ product.price }} <del class="text-secondary">  ${{product.price}}</del></p>
             </div>
           </div>
       </div>

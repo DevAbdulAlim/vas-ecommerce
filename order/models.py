@@ -21,8 +21,13 @@ choices=STATUS_CHOICES, default='pending')
     discount_amount = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
     subtotal_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2, default=0)
     total_price = models.DecimalField(null=True, blank=True, max_digits=8, decimal_places=2)
+    is_processed = models.BooleanField(default=False)
 
   
+    def generate_and_print_invoice(self):
+        invoice = Invoice(order=self)
+        invoice.save()
+        return "Invoice generated for order {} and opened in a new tab for printing.".format(self.pk)
 
     def calculate_subtotal_price(self, item):
         order_item = self.orderitem_set.get(pk=item)
@@ -73,6 +78,8 @@ class OrderItem(BaseModel):
     def __str__(self):
         return self.product.name
     
+
+    
     @property
     def item_total_price(self):
         return self.product.price * self.quantity
@@ -81,3 +88,12 @@ class OrderItem(BaseModel):
         super().save(*args, **kwargs)
         self.order.calculate_total_items()
         self.order.calculate_subtotal_price(self.pk)
+
+
+class Invoice(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    invoice_number = models.CharField(max_length=10)
+    # Add other invoice fields
+    
+    def __str__(self):
+        return self.invoice_number

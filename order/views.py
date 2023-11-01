@@ -21,3 +21,7 @@ class OrderView(View):
             return redirect('core:home')
 
         return redirect('payment:address')
+    
+class PrintInvoice(View):
+    def get(self, request, invoice_id):
+        return render(request, 'order/print_invoice.html')
