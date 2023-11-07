@@ -10,11 +10,47 @@
 {% block subContent %}
 <div class="d-flex justify-content-between mb-3">
     <h2><i class="fa-solid fa-bag-shopping"></i> My Orders</h2>
-    <button class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
+    <button  class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <i class="fa-solid fa-bars"></i>
     </button>
   </div>
-<h1>Profile</h1>
+<div>
+  <div class="row g-4">
+    <div class="col-12 col-lg-6 col-xl-6">
+      <div class="card d-block p-3 h-100">
+        <img src="" alt="profile" height="50px" width="50px">
+        <span>Abdul Alim</span>
+
+      </div>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-2"><div class="card h-100 p-3"><span class="d-block">10</span>All Orders</div></div>
+    <div class="col-12 col-lg-6 col-xl-2"><div class="card h-100 p-3"><span class="d-block">10</span>Orders Completed</div></div>
+    <div class="col-12 col-lg-6 col-xl-2"><div class="card h-100 p-3"><span class="d-block">10</span>Orders Pending</div></div>
+
+  </div>
+
+  <div class="row card flex-row my-5 p-3">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <small class="d-block text-secondary">First Name</small>
+      <span>Nick</span>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <small class="d-block text-secondary">First Name</small>
+      <span>Nick</span>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <small class="d-block text-secondary">First Name</small>
+      <span>Nick</span>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <small class="d-block text-secondary">First Name</small>
+      <span>Nick</span>
+    </div>
+
+  </div>
+</div>
 
 {% endblock %}

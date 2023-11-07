@@ -28,10 +28,7 @@ body {
 .show {
   display: flex;
 }
-.active {
-  background-color: #f8f9fa !important;
-  border-left: 5px solid blue !important;
-}
+
 .tab {
   float: left;
   height: 100%;
